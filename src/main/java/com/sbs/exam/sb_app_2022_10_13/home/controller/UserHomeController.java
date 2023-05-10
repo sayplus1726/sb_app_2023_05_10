@@ -1,8 +1,6 @@
 package com.sbs.exam.sb_app_2022_10_13.home.controller;
 
-import lombok.AllArgsConstructor;
-import lombok.Data;
-import lombok.NoArgsConstructor;
+import com.sbs.exam.sb_app_2022_10_13.article.vo.Article;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
@@ -84,7 +82,7 @@ public class UserHomeController {
   @RequestMapping("/user/home/getArticle")
   @ResponseBody
   public Article getArticle() {
-    Article article = new Article(1, "제목1");
+    Article article = new Article(1, "제목1", "내용1");
 
     return article;
   }
@@ -92,8 +90,8 @@ public class UserHomeController {
   @RequestMapping("/user/home/getArticles")
   @ResponseBody
   public List<Article> getArticles() {
-    Article article1 = new Article(1, "제목1");
-    Article article2 = new Article(2, "제목2");
+    Article article1 = new Article(1, "제목1", "내용1");
+    Article article2 = new Article(2, "제목2", "내용2");
 
     List<Article> list = new ArrayList<>();
     list.add(article1);
@@ -107,14 +105,6 @@ public class UserHomeController {
   public String doSetCount(int count) {
     this.count = count;
     return "count의 값이" + this.count + "으로 초기화 되었습니다.";
-  }
-
-@Data
-@NoArgsConstructor
-@AllArgsConstructor
-class Article {
-    public int id;
-    public String title;
   }
 
 }
