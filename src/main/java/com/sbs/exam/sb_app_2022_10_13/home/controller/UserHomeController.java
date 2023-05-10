@@ -11,36 +11,18 @@ public class UserHomeController {
   public UserHomeController() {
     count = -1;
   }
-  @RequestMapping("/user/home/main")
-  @ResponseBody
-  public String showMain() {
-    return "안녕";
-  }
 
-  @RequestMapping("/user/home/main2")
+  @RequestMapping("/user/home/getCount")
   @ResponseBody
-  public String showMain2() {
-    return "반갑습니다";
-  }
-
-  @RequestMapping("/user/home/main3")
-  @ResponseBody
-  public String showMain3() {
-    return "또 만나요";
-  }
-
-  @RequestMapping("/user/home/main4")
-  @ResponseBody
-  public int showMain4() {
-    count++;
+  public int getCount() {
     return count;
   }
 
-  @RequestMapping("/user/home/main5")
+  @RequestMapping("/user/home/doSetCount")
   @ResponseBody
-  public String showMain5() {
-    count = 0;
-    return "count의 값이 0으로 초기화 되었습니다.";
+  public String doSetCount(int count) {
+    this.count = count;
+    return "count의 값이" + this.count + "으로 초기화 되었습니다.";
   }
 
 }
