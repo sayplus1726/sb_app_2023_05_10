@@ -20,6 +20,30 @@ public class UserMemberController {
                        String cellphoneNo, String email) {
     int id = memberService.join(loginId, loginPw, name, nickname, cellphoneNo, email);
 
+    if ( loginId == null) {
+      return "loginId를 입력해주세요.";
+    }
+
+    if ( loginPw == null) {
+      return "loginPw를 입력해주세요.";
+    }
+
+    if ( name == null) {
+      return "name을 입력해주세요.";
+    }
+
+    if ( nickname == null) {
+      return "nickname을 입력해주세요.";
+    }
+
+    if ( cellphoneNo == null) {
+      return "cellphoneNo을 입력해주세요.";
+    }
+
+    if ( email == null) {
+      return "email을 입력해주세요.";
+    }
+
     if ( id == -1 ) {
       return "해당 로그인 아이디는 이미 사용중입니다.";
     }
