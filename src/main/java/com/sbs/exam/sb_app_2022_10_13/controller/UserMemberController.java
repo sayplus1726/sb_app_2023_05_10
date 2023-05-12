@@ -1,7 +1,7 @@
-package com.sbs.exam.sb_app_2022_10_13.member.controller;
+package com.sbs.exam.sb_app_2022_10_13.controller;
 
-import com.sbs.exam.sb_app_2022_10_13.member.service.MemberService;
-import com.sbs.exam.sb_app_2022_10_13.member.vo.Member;
+import com.sbs.exam.sb_app_2022_10_13.service.MemberService;
+import com.sbs.exam.sb_app_2022_10_13.vo.Member;
 import com.sbs.exam.sb_app_2022_10_13.util.Ut;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -19,7 +19,6 @@ public class UserMemberController {
   @ResponseBody
   public Object doJoin(String loginId, String loginPw, String name, String nickname,
                        String cellphoneNo, String email) {
-    int id = memberService.join(loginId, loginPw, name, nickname, cellphoneNo, email);
 
     if ( Ut.empty(loginId) ) {
       return "loginId를 입력해주세요.";
@@ -44,6 +43,8 @@ public class UserMemberController {
     if ( Ut.empty(email) ) {
       return "email을 입력해주세요.";
     }
+
+    int id = memberService.join(loginId, loginPw, name, nickname, cellphoneNo, email);
 
     if ( id == -1 ) {
       return Ut.f("해당 로그인 아이디(%s)는 이미 사용중입니다.", loginId);
