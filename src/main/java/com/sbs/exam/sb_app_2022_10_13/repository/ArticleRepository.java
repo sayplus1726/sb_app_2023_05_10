@@ -13,10 +13,11 @@ public interface ArticleRepository {
           INSERT INTO article
           SET regDate = NOW(),
           updateDate = NOW(),
+          memberId = #{memberId},
           title = #{title},
           `body` = #{body}"
           """)
-  public void writeArticle(@Param("title") String title, @Param("body") String body);
+  public void writeArticle(@Param("memberId") int memberId, @Param("title") String title, @Param("body") String body);
 
   // SELECT * FROM article WHERE id = ?
   @Select("""
