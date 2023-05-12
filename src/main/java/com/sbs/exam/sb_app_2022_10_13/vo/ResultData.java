@@ -27,7 +27,6 @@ public class ResultData<DT> {
   }
 
 
-
   public boolean isSuccess() {
     return resultCode.startsWith("S-");
   }
