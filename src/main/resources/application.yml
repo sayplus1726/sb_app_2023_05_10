@@ -10,7 +10,7 @@ spring:
     view:
       prefix: /WEB-INF/jsp/
       suffix: .jsp
-    static-location: classpath:/static/
+    static-location: classpath:/static/**
   datasource:
     driver-class-name: org.mariadb.jdbc.Driver
     # driver-class-name: net.sf.log4jdbc.sql.jdbcapi.DriverSpy
