@@ -10,10 +10,10 @@ import javax.servlet.http.HttpServletResponse;
 @Component
 public class BeforeActionInterceptor implements HandlerInterceptor {
 
-  public boolean preHandle(HttpServletRequest req, HttpServletResponse resq, Object handle) throws Exception {
-    Rq rq = new Rq(req);
+  public boolean preHandle(HttpServletRequest req, HttpServletResponse resp, Object handle) throws Exception {
+    Rq rq = new Rq(req, resp);
     req.setAttribute("rq", rq);
 
-    return HandlerInterceptor.super.preHandle(req, resq, handle);
+    return HandlerInterceptor.super.preHandle(req, resp, handle);
   }
 }
