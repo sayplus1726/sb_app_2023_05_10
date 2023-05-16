@@ -20,10 +20,14 @@ public class UserArticleController {
   @Autowired
   private ArticleService articleService;
 
-  //액션 메서드 시작
-  @RequestMapping("/user/article/doAdd")
+  @RequestMapping("/user/article/write")
+  public String showWrite(HttpServletRequest req) {
+    return "user/article/write";
+  }
+
+  @RequestMapping("/user/article/doWrite")
   @ResponseBody
-  public ResultData<Article> doAdd(HttpServletRequest req, String title, String body) {
+  public ResultData<Article> doWrite(HttpServletRequest req, String title, String body) {
     Rq rq = (Rq) req.getAttribute("rq");
 
     if ( rq.isLogined() == false) {

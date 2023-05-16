@@ -11,7 +11,7 @@ public interface ArticleRepository {
   // INSERT INTO article SET regDate = NOW(), updateDate = NOW(), title = ?, `body` = ?
   @Insert("""
           INSERT INTO article
-          regDate = NOW(),
+          SET regDate = NOW(),
           updateDate = NOW(),
           memberId = #{memberId},
           title = #{title},
