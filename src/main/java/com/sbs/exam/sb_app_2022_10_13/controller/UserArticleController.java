@@ -60,7 +60,8 @@ public class UserArticleController {
   }
 
   @RequestMapping("/user/article/list")
-  public String showList(Model model, @RequestParam(defaultValue = "1") int boardId, @RequestParam(defaultValue = "1") int page) {
+  public String showList(Model model, @RequestParam(defaultValue = "1") int boardId, @RequestParam(defaultValue = "1") int page,
+                         @RequestParam(defaultValue = "title,body") String searchKeywordTypeCode, @RequestParam(defaultValue = "") String searchKeyword) {
 
     Board board = boardService.getBoardById(boardId);
 
@@ -68,7 +69,7 @@ public class UserArticleController {
       return rq.historyBackJsOnView(Ut.f("%d번 게시판은 존재하지 않습니다.", boardId));
     }
 
-    int articlesCount = articleService.getArticlesCount(boardId);
+    int articlesCount = articleService.getArticlesCount(boardId, searchKeywordTypeCode, searchKeyword);
 
     int itemsCountInAPage = 10;
     int pageCount = (int) Math.ceil((double) articlesCount / itemsCountInAPage);
