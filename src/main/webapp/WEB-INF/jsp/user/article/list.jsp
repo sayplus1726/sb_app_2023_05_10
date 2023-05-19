@@ -43,9 +43,27 @@
             </table>
             <div class="page-menu mt-3 flex justify-center">
                 <div class="btn-group">
-                    <c:forEach begin="1" end="${pageCount}" var="i">
+                    <c:set var="pageMenuArmLen" value="5" />
+                    <c:set var="startPage" value="${page - pageMenuArmLen >= 1 ? page - pageMenuArmLen : 1}" />
+                    <c:set var="endPage" value="${page + pageMenuArmLen <= 1 ? page + pageMenuArmLen : pageCount}" />
+
+                    <c:if test="${startPage > 1}">
+                        <a class="btn btn-sm" href="?page=1">1</a>
+                        <c:if test="${startPage > 2}">
+                            <a href="btn btn-disabled">...</a>
+                        </c:if>
+                    </c:if>
+
+                    <c:forEach begin="1" end="${endPage}" var="i">
                         <a class="btn btn-sm ${page == i ? 'btn-active' : ''}" href="?page=${i}">${i}</a>
                     </c:forEach>
+
+                    <c:if test="${endPage < pageCount}">
+                        <c:if test="${endPage < pageCount - 1}">
+                            <a href="btn btn-disabled">...</a>
+                        </c:if>
+                        <a class="btn btn-sm" href="?page=${pageCount}">${pageCount}</a>
+                    </c:if>
                 </div>
             </div>
         </div>
