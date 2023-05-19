@@ -17,14 +17,14 @@ import java.util.List;
 
 @Controller
 public class UserArticleController {
-
-
   private ArticleService articleService;
   private BoardService boardService;
+  private Rq rq;
 
-  public UserArticleController(ArticleService articleService, BoardService boardService) {
+  public UserArticleController(ArticleService articleService, BoardService boardService, Rq rq) {
     this.articleService = articleService;
     this.boardService = boardService;
+    this.rq = rq;
   }
 
   @RequestMapping("/user/article/write")
@@ -34,8 +34,7 @@ public class UserArticleController {
 
   @RequestMapping("/user/article/doWrite")
   @ResponseBody
-  public String doWrite(HttpServletRequest req, String title, String body, String replaceUri) {
-    Rq rq = (Rq) req.getAttribute("rq");
+  public String doWrite(String title, String body, String replaceUri) {
 
     if (rq.isLogined() == false) {
       return rq.jsHistoryBack("로그인 후 이용해주세요.");
@@ -60,8 +59,7 @@ public class UserArticleController {
   }
 
   @RequestMapping("/user/article/list")
-  public String showList(HttpServletRequest req, Model model, int boardId) {
-    Rq rq = (Rq) req.getAttribute("rq");
+  public String showList(Model model, int boardId) {
 
     Board board = boardService.getBoardById(boardId);
 
@@ -81,8 +79,7 @@ public class UserArticleController {
   }
 
   @RequestMapping("/user/article/detail")
-  public String showDetail(HttpServletRequest req, Model model, int id) {
-    Rq rq = (Rq) req.getAttribute("rq");
+  public String showDetail(Model model, int id) {
 
     Article article = articleService.getForPrintArticle(rq.getLoginedMemberId(), id);
 
@@ -93,8 +90,7 @@ public class UserArticleController {
 
   @RequestMapping("/user/article/doDelete")
   @ResponseBody
-  public String doDelete(HttpServletRequest req, int id) {
-    Rq rq = (Rq) req.getAttribute("rq");
+  public String doDelete(int id) {
 
     if (rq.isLogined() == false) {
       return rq.jsHistoryBack("로그인 후 이용해주세요.");
@@ -116,8 +112,7 @@ public class UserArticleController {
   }
 
   @RequestMapping("/user/article/modify")
-  public String showModify(HttpServletRequest req, Model model, int id) {
-    Rq rq = (Rq) req.getAttribute("rq");
+  public String showModify(Model model, int id) {
 
     Article article = articleService.getForPrintArticle(rq.getLoginedMemberId(), id);
 
@@ -138,8 +133,7 @@ public class UserArticleController {
 
   @RequestMapping("/user/article/doModify")
   @ResponseBody
-  public String doModify(HttpServletRequest req, int id, String title, String body) {
-    Rq rq = (Rq) req.getAttribute("rq");
+  public String doModify(int id, String title, String body) {
 
     if (rq.isLogined() == false) {
       return rq.jsHistoryBack("로그인 후 이용해주세요.");

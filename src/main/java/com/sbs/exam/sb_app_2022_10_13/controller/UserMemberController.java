@@ -1,22 +1,23 @@
 package com.sbs.exam.sb_app_2022_10_13.controller;
 
 import com.sbs.exam.sb_app_2022_10_13.service.MemberService;
-import com.sbs.exam.sb_app_2022_10_13.vo.Member;
 import com.sbs.exam.sb_app_2022_10_13.util.Ut;
+import com.sbs.exam.sb_app_2022_10_13.vo.Member;
 import com.sbs.exam.sb_app_2022_10_13.vo.ResultData;
 import com.sbs.exam.sb_app_2022_10_13.vo.Rq;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 
-import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 
 @Controller
 public class UserMemberController {
   private MemberService memberService;
-  public UserMemberController(MemberService memberService) {
+  private Rq rq;
+  public UserMemberController(MemberService memberService, Rq rq) {
     this.memberService = memberService;
+    this.rq = rq;
   }
 
 
@@ -68,8 +69,7 @@ public class UserMemberController {
 
   @RequestMapping("/user/member/doLogin")
   @ResponseBody
-  public String doLogin(HttpServletRequest req, String loginId, String loginPw) {
-    Rq rq = (Rq) req.getAttribute("rq");
+  public String doLogin(String loginId, String loginPw) {
 
     if ( rq.isLogined() ) {
       return Ut.jsHistoryBack("이미 로그인 되었습니다.");
@@ -100,8 +100,7 @@ public class UserMemberController {
 
   @RequestMapping("/user/member/doLogout")
   @ResponseBody
-  public String doLogout(HttpServletRequest req) {
-    Rq rq = (Rq) req.getAttribute("rq");
+  public String doLogout() {
 
     if ( !rq.isLogined() ) {
       return Ut.jsHistoryBack("이미 로그아웃 상태입니다.");
