@@ -21,7 +21,7 @@ public interface ArticleRepository {
 
   // SELECT * FROM article WHERE id = ?
   @Select("""
-         SELECT A.*,
+         SELECT A.*
          M.nickname AS extra__writerName
          FROM article AS A
          LEFT JOIN member AS M
@@ -41,7 +41,7 @@ public interface ArticleRepository {
 
   // SELECT * FROM article ORDER BY id DESC;
  @Select("""
-         SELECT A.*,
+         SELECT A.*
          M.nickname AS extra__writerName
          FROM article AS A
          LEFT JOIN member AS M
@@ -86,4 +86,16 @@ public interface ArticleRepository {
          </script>
          """)
   public List<Article> getArticles(@Param("boardId") int boardId);
+
+  @Select("""
+         <script>
+         SELECT COUNT(*) AS cnt
+         FROM article AS A
+         WHERE 1
+         <if test="boardId != 0">
+            AND A.boardId = #{boardId}
+         </if>
+         </script>
+         """)
+  public int getArticlesCount(@Param("boardId") int boardId);
 }
