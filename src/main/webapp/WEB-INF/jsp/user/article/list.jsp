@@ -1,13 +1,30 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8" %>
 
-<c:set var="pageTitle" value="${board.name} 게시물 리스트" />
+<c:set var="pageTitle" value="${board.name} 게시물 리스트"/>
 <%@ include file="../common/head.jspf" %>
 
 <section class="mt-5 con-min-width">
     <div class="con mx-auto px-3">
-        <div>
-            게시물 개수 : ${articlesCount}건
+        <div class="flex">
+            <div>
+                게시물 개수 : <span class="badge badge-primary">${articlesCount}</span>건
+            </div>
+            <div class="flex-grow"></div>
+            <form>
+                <input type="hidden" name="boardId" value="${param.boardId}">
+
+                <select data-value="${param.searchKeywordTypeCode}" name="searchKeywordTypeCode"
+                        class="select select-bordered">
+                    <option disabled="disabled">검색타입</option>
+                    <option value="title">제목</option>
+                    <option value="body">내용</option>
+                    <option value="title,body">제목, 내용</option>
+
+                    <input name="searchKeyword" type="text" class="ml-2 w-72 input input-bordered" placeholder="검색어" maxlength="20" value="${param.searchKeyword}">
+                    <button type="submit" class="ml-2 btn btn-primary">검색</button>
+                </select>
+            </form>
         </div>
         <div class="table-box-type-1 mt-3">
             <table class="table table-fixed">
@@ -43,9 +60,9 @@
             </table>
             <div class="page-menu mt-3 flex justify-center">
                 <div class="btn-group">
-                    <c:set var="pageMenuArmLen" value="5" />
-                    <c:set var="startPage" value="${page - pageMenuArmLen >= 1 ? page - pageMenuArmLen : 1}" />
-                    <c:set var="endPage" value="${page + pageMenuArmLen <= 1 ? page + pageMenuArmLen : pageCount}" />
+                    <c:set var="pageMenuArmLen" value="5"/>
+                    <c:set var="startPage" value="${page - pageMenuArmLen >= 1 ? page - pageMenuArmLen : 1}"/>
+                    <c:set var="endPage" value="${page + pageMenuArmLen <= 1 ? page + pageMenuArmLen : pageCount}"/>
 
                     <c:set var="pageBaseUri" value="?boardId=${boardId}"/>
                     <c:set var="pageBaseUri" value="${pageBaseUri}&searchKeywordTypeCode=${searchKeywordTypeCode}"/>
