@@ -95,14 +95,13 @@ public class UserArticleController {
   }
 
   @RequestMapping("/user/article/doIncreaseHitCountRd")
+  @ResponseBody
   public ResultData<Integer> doIncreaseHitCountRd(int id) {
-    ResultData increaseHitCountRd = articleService.increaseHitCount(id);
+    ResultData<Integer> increaseHitCountRd = articleService.increaseHitCount(id);
 
     if ( increaseHitCountRd.isFail() ) {
       return increaseHitCountRd;
     }
-
-    Article article = articleService.getForPrintArticle(rq.getLoginedMemberId(), id);
 
     return ResultData.newData(increaseHitCountRd, "hitCount", articleService.getArticleHitCount(id));
   }

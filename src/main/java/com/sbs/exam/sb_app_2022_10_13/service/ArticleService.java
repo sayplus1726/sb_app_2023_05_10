@@ -17,7 +17,7 @@ public class ArticleService {
     this.articleRepository = articleRepository;
   }
 
-  public ResultData writeArticle(int memberId, int boardId, String title, String body) {
+  public ResultData<Integer> writeArticle(int memberId, int boardId, String title, String body) {
     articleRepository.writeArticle(memberId, boardId, title, body);
     int id =  articleRepository.getLastInsertId();
 
@@ -66,6 +66,7 @@ public class ArticleService {
     articleRepository.modifyArticle(id, title, body);
 
     Article article = getForPrintArticle(0, id);
+
     return ResultData.from("S-1", Ut.f("%d번 게시물을 수정하였습니다.", id), "article", article );
   }
 
@@ -97,7 +98,7 @@ public class ArticleService {
     return articleRepository.getArticlesCount(boardId, searchKeywordTypeCode, searchKeyword);
   }
 
-  public ResultData increaseHitCount(int id) {
+  public ResultData<Integer> increaseHitCount(int id) {
     int affectedRowsCount = articleRepository.increaseHitCount(id);
 
     if ( affectedRowsCount == 0 ) {
